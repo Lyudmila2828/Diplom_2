@@ -1,6 +1,8 @@
 import allure
 from faker import Faker
 
+from api import StellarBurgersAPI
+
 @allure.step('Генерация тестовых данных пользователя')
 def generate_user_data():
     fake = Faker()

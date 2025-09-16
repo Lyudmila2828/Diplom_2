@@ -7,15 +7,15 @@ from helpers import generate_user_data
 @allure.feature("Создание пользователя")
 class TestCreateUser:
     @allure.title("Cоздать уникального пользователя")
-    def test_create_unique_user(self, test_user):
-        response = StellarBurgersAPI.register_user(test_user)
+    def test_create_unique_user(self, user):
+        response = user.get("response")
         assert response.json().get("success")
         assert response.ok
 
     @allure.title("Создать пользователя, который уже зарегистрирован")
-    def test_existing_user(self, test_user):
-        StellarBurgersAPI.register_user(test_user)
-        response = StellarBurgersAPI.register_user(test_user)
+    def test_existing_user(self, user):
+        user_data = user.get("user_data")
+        response = StellarBurgersAPI.register_user(user_data)
         assert not response.json().get("success")
         assert response.json().get("message") == "User already exists"
         assert not response.ok

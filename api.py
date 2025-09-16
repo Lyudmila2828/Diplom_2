@@ -1,8 +1,6 @@
 import allure
 import requests
-from data import *
-
-BASE_URL = "https://stellarburgers.nomoreparties.site/api"
+from urls import *
 
 
 class StellarBurgersAPI:
@@ -21,3 +19,8 @@ class StellarBurgersAPI:
     @allure.step("Авторизация пользователя")
     def login_user(email, password):
         return requests.post(LOGIN_URL, json={"email": email, "password": password})
+
+    @allure.step("Удаление пользователя")
+    def delete_user(token):
+        headers = {"Authorization": f"{token}"}
+        return requests.delete(f"{BASE_URL}/auth/user", headers=headers)
